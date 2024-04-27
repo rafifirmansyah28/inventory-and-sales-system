@@ -9,6 +9,7 @@
     "build"
   ],
   "compilerOptions": {
+    "baseUrl": "./", // <-- add baseUrl
     "outDir": "build",
     "rootDir": "./",
     "sourceMap": true,
