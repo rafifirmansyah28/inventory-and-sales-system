@@ -1,0 +1,96 @@
+@layout('layouts/auth/main')
+@set('title', 'Login')
+
+@section('styles')
+  <style>
+    img {
+      height: 9rem;
+    }
+  </style>
+@end
+
+@section('content')
+  <div class="row">
+    <div class="col-lg-12">
+        <div class="text-center mt-sm-5 mb-4 text-white-50">
+            <div>
+                <a href="#" class="d-inline-block auth-logo">
+                    <img src="{{ env('PARENT_COMPANY_URL') }}" alt="Logo PT. Giga Persada Media">
+                </a>
+            </div>
+            <p class="mt-3 fs-20 fw-medium text-dark">Sistem Informasi Inventaris dan Penjualan Barang Multi Perusahaan</p>
+        </div>
+    </div>
+  </div>
+  <!-- end row -->
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6 col-xl-5">
+        <div class="card mt-4">
+            <div class="card-body p-4">
+                <div class="text-center mt-2">
+                    <h5 class="text-primary">Selamat Datang Kembali !</h5>
+                    <p class="text-muted">Silahkan Login terlebih dahulu untuk masuk ke dalam sistem.</p>
+                </div>
+                <div class="p-2 mt-4">
+                    <form action="{{ route('/auth/login') }}" method="POST">
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            @if(flashMessages.has('errors.email'))
+                              <input type="text" class="form-control is-invalid" id="email" name="email" placeholder="Masukkan email">
+                            @elseif(flashMessages.has('email'))
+                              <input type="text" class="form-control" id="email" name="email" value="{{ flashMessages.get('email') }}" placeholder="Masukkan email">
+                            @else
+                              <input type="text" class="form-control" id="email" name="email" placeholder="Masukkan email">
+                            @endif
+                            <div class="invalid-feedback">{{ flashMessages.get('errors.email') }}</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Kata sandi</label>
+                            <div class="position-relative auth-pass-inputgroup">
+                              @if(flashMessages.has('errors.password'))
+                              <input type="password" class="form-control is-invalid" placeholder="Masukkan Kata sandi" id="password" name="password">
+                              @else
+                                <input type="password" class="form-control" placeholder="Masukkan Kata sandi" id="password" name="password">
+                              @endif
+                              <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                            </div>
+                              <div class="invalid-feedback">{{ flashMessages.get('errors.email') }}</div>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="remember-me" name="remember_me">
+                            <label class="form-check-label" for="remember-me">Ingatkan saya</label>
+                        </div>
+
+                        <div class="mt-4">
+                            <button class="btn btn-primary w-100" type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- end card body -->
+        </div>
+        <!-- end card -->
+    </div>
+  </div>
+  <!-- end row -->
+@end
+
+@section('scripts')
+  <script>
+    // Password addon
+    $("#password-addon").click(function() {
+      if($(this).children('i').hasClass('ri-eye-fill')) {
+        $(this).children('i').removeClass('ri-eye-fill')
+        $(this).children('i').addClass('ri-eye-off-fill')
+        $('#password').attr('type', 'text')
+      } else {
+        $(this).children('i').removeClass('ri-eye-off-fill')
+        $(this).children('i').addClass('ri-eye-fill')
+        $('#password').attr('type', 'password')
+      }
+    })
+  </script>
+@end

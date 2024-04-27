@@ -1,0 +1,81 @@
+{
+  "name": "inventory-and-sales-system",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node ace serve --watch",
+    "debug": "DEBUG=knex:* node ace serve --watch",
+    "build": "node ace build --production --ignore-ts-errors && cd build/public && mkdir images && mkdir uploads && cd ../..",
+    "deploy": "npm run build && cd build && npm run pm2:reload",
+    "complete:local": "git pull origin main && npm install && node ace migration:run",
+    "complete:production": "git pull origin main && npm install && node ace migration:run --force && npm run deploy",
+    "start": "node server.js",
+    "pm2:dev": "pm2 start ace -- serve --watch",
+		"pm2:start": "pm2 start ecosystem.config.js",
+		"pm2:reload": "pm2 reload ecosystem.config.js",
+		"pm2:delete": "pm2 delete ecosystem.config.js",
+    "lint": "eslint . --ext=.ts",
+    "format": "prettier --write ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:adonis/typescriptApp",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error"
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "build"
+  ],
+  "prettier": {
+    "trailingComma": "es5",
+    "semi": false,
+    "singleQuote": true,
+    "useTabs": false,
+    "quoteProps": "consistent",
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "printWidth": 100
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^5.8.1",
+    "@japa/preset-adonis": "^1.2.0",
+    "@japa/runner": "^2.2.1",
+    "adonis-preset-ts": "^2.1.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-adonis": "^2.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "pino-pretty": "^9.1.0",
+    "prettier": "^2.7.1",
+    "typescript": "~4.6",
+    "youch": "^3.2.2",
+    "youch-terminal": "^2.1.5"
+  },
+  "dependencies": {
+    "@adonisjs/auth": "^8.2.2",
+    "@adonisjs/core": "^5.8.0",
+    "@adonisjs/lucid": "^18.1.1",
+    "@adonisjs/redis": "^7.3.2",
+    "@adonisjs/repl": "^3.1.0",
+    "@adonisjs/session": "^6.2.0",
+    "@adonisjs/shield": "^7.0.0",
+    "@adonisjs/view": "^6.1.0",
+    "axios": "^1.1.2",
+    "bullmq": "^3.6.2",
+    "luxon": "^3.0.4",
+    "pg": "^8.8.0",
+    "phc-argon2": "^1.1.3",
+    "proxy-addr": "^2.0.7",
+    "reflect-metadata": "^0.1.13",
+    "sharp": "^0.31.1",
+    "source-map-support": "^0.5.21"
+  }
+}

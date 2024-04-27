@@ -1,0 +1,179 @@
+@layout('layouts/admin/main')
+@set('menu', 'Pemangku Jabatan Klien')
+@set('title', 'Buat Pemangku Jabatan Klien')
+
+@section('content')
+  <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Buat Pemangku Jabatan Klien</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{{ route('client_stackholders.list') }}">Daftar Pemangku Jabatan Klien</a></li>
+                    <li class="breadcrumb-item active">Buat Pemangku Jabatan Klien</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h4 class="card-title mb-0 flex-grow-1">Buat Pemangku Jabatan Klien</h4>
+        </div>
+        <form action="{{ route('client_stackholders.store') }}" method="POST" enctype="multipart/form-data">
+        <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="name" class="form-label">Nama Pemangku Jabatan <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.name'))
+                      <input type="text" class="form-control is-invalid" id="name" name="name" placeholder="Masukkan nama pemangku jabatan">
+                    @elseif(flashMessages.has('name'))
+                      <input type="text" class="form-control" id="name" name="name" value="{{ flashMessages.get('name') }}" placeholder="Masukkan nama pemangku jabatan">
+                    @else
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama pemangku jabatan">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.name') }}</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="nip" class="form-label">NIP <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.nip'))
+                      <input type="text" class="form-control is-invalid" id="nip" name="nip" placeholder="Masukkan NIP">
+                    @elseif(flashMessages.has('nip'))
+                      <input type="text" class="form-control" id="nip" name="nip" value="{{ flashMessages.get('nip') }}" placeholder="Masukkan NIP">
+                    @else
+                      <input type="text" class="form-control" id="nip" name="nip" placeholder="Masukkan NIP">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.nip') }}</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="phone_number" class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.phone_number'))
+                      <input type="text" class="form-control is-invalid" id="phone_number" name="phone_number" placeholder="Masukkan nomor telepon">
+                    @elseif(flashMessages.has('phone_number'))
+                      <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ flashMessages.get('phone_number') }}" placeholder="Masukkan nomor telepon">
+                    @else
+                      <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Masukkan nomor telepon">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.phone_number') }}</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="job-position" class="form-label">Posisi Jabatan</label>
+                    @if(flashMessages.has('errors.job_position'))
+                      <input type="text" class="form-control is-invalid" id="job-position" name="job_position" placeholder="Masukkan posisi jabatan">
+                    @elseif(flashMessages.has('job_position'))
+                      <input type="text" class="form-control" id="job-position" name="job_position" value="{{ flashMessages.get('job_position') }}" placeholder="Masukkan posisi jabatan">
+                    @else
+                      <input type="text" class="form-control" id="job-position" name="job_position" placeholder="Masukkan posisi jabatan">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.job_position') }}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="client-id" class="form-label">Klien <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.client_id'))
+                      <select class="select2 is-invalid" name="client_id" id="client-id">
+                        <option></option>
+                        @each(client in clients)
+                          <option value="{{ client.id }}">{{ client.name }}</option>
+                        @end
+                      </select>
+                    @elseif(flashMessages.has('client_id'))
+                      <select class="select2" name="client_id" id="client-id">
+                        <option></option>
+                        @each(client in clients)
+                          @if (client.id == flashMessages.get('client_id'))
+                            <option value="{{ client.id }}" name="client_id" selected="selected">{{ client.name }}</option>
+                          @endif
+
+                          <option value="{{ client.id }}" name="client_id">{{ client.name }}</option>
+                        @end
+                      </select>
+                    @else
+                      <select class="select2" name="client_id" id="client-id">
+                        <option></option>
+                        @each(client in clients)
+                          <option value="{{ client.id }}">{{ client.name }}</option>
+                        @end
+                      </select>
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.client_id') }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <span>Catatan:</span>
+                <p><span class="text-danger">*</span> <span class="font-weight-bold">Wajib diisi</span></p>
+            </div>
+        </div>
+          <div class="card-footer d-flex justify-content-end">
+            <input type="submit" class="btn btn-primary" value="Kirim">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+@end
+
+@section('styles')
+  <!-- Sweet Alert css-->
+  <link href="/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/select2.min.css" rel="stylesheet" />
+@end
+
+@section('scripts')
+  <!-- Select 2 -->
+    <script src="/assets/js/select2.min.js"></script>
+  <!-- Sweet Alerts js -->
+  <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+  <script>
+    // Select 2
+    $(".select2").select2({
+      placeholder: "Pilih Klien",
+    })
+
+    // Phone number only number type
+    $("#phone_number").on('input', function() {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    })
+  </script>
+
+  @if(flashMessages.has('success'))
+    <script>
+      Swal.fire({
+        title: "Berhasil!",
+        text: "{{ flashMessages.get('success') }}",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @elseif(flashMessages.has('error'))
+    <script>
+      Swal.fire({
+        title: "Gagal!",
+        text: "{{ flashMessages.get('error') }}",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @endif
+@end

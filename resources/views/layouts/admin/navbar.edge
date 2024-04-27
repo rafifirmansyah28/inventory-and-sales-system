@@ -1,0 +1,104 @@
+<div class="app-menu navbar-menu">
+  <!-- LOGO -->
+  <div class="navbar-brand-box">
+      <!-- Dark Logo-->
+      <a href="{{ route('admin.index') }}" class="logo logo-dark">
+          <span class="logo-sm">
+              {{--  <img src="/assets/images/logo-sm.png" alt="" height="22">  --}}
+              <h2 class="mt-4 text-white">SIP</h2>
+          </span>
+          <span class="logo-lg">
+              {{--  <img src="/assets/images/logo-dark.png" alt="" height="17">  --}}
+              <h1 class="mt-4 text-white">SIP-GPM</h1>
+          </span>
+      </a>
+      <!-- Light Logo-->
+      <a href="{{ route('admin.index') }}" class="logo logo-light">
+          <span class="logo-sm">
+              {{--  <img src="/assets/images/logo-sm.png" alt="" height="22">  --}}
+              <h2 class="mt-4 text-white">SIP</h2>
+          </span>
+          <span class="logo-lg">
+              {{--  <img src="/assets/images/logo-light.png" alt="" height="17">  --}}
+              <h1 class="mt-4 text-white">SIP-GPM</h1>
+          </span>
+      </a>
+      <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+          <i class="ri-record-circle-line"></i>
+      </button>
+  </div>
+
+  <div id="scrollbar">
+      <div class="container-fluid">
+
+          <div id="two-column-menu">
+          </div>
+          <ul class="navbar-nav" id="navbar-nav">
+              <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+              <li class="nav-item">
+                  <a class="nav-link menu-link" href="#sidebarCompanies" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCompanies">
+                      <i class="mdi mdi-speedometer"></i> <span>Perusahaan</span>
+                  </a>
+                  <div class="collapse menu-dropdown {{ menu === 'Perusahaan' ? 'show' : '' }}" id="sidebarCompanies">
+                      <ul class="nav nav-sm flex-column">
+                          <li class="nav-item">
+                            <a href="{{ route('companies.create') }}" class="nav-link {{ menu === 'Perusahaan' && title === 'Buat Perusahaan' ? 'active' : '' }}"> Buat Perusahaan </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{ route('companies.list') }}" class="nav-link {{ menu === 'Perusahaan' && title === 'Daftar Perusahaan' ? 'active' : '' }}"> Daftar Perusahaan </a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link menu-link" href="#sidebarUserCompanies" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUserCompanies">
+                    <i class="mdi mdi-speedometer"></i> <span>Pengguna Perusahaan</span>
+                </a>
+                <div class="collapse menu-dropdown {{ menu === 'Pengguna Perusahaan' ? 'show' : '' }}" id="sidebarUserCompanies">
+                  <ul class="nav nav-sm flex-column">
+                    <li class="nav-item">
+                      <a href="{{ route('user_companies.create') }}" class="nav-link {{ menu === 'Pengguna Perusahaan' && title === 'Buat Pengguna Perusahaan' ? 'active' : '' }}"> Buat Pengguna Perusahaan </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ route('user_companies.list') }}" class="nav-link {{ menu === 'Pengguna Perusahaan' && title === 'Daftar Pengguna Perusahaan' ? 'active' : '' }}"> Daftar Pengguna Perusahaan </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link menu-link" href="#sidebarClients" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarClients">
+                      <i class="mdi mdi-view-grid-plus-outline"></i> <span>Klien</span>
+                  </a>
+                  <div class="collapse menu-dropdown {{ menu === 'Klien' ? 'show' : '' }}" id="sidebarClients">
+                      <ul class="nav nav-sm flex-column">
+                          <li class="nav-item">
+                              <a href="{{ route('clients.create') }}" class="nav-link {{ menu === 'Klien' && title === 'Buat Klien' ? 'active' : '' }}" data-key="t-calendar"> Buat Klien </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{ route('clients.list') }}" class="nav-link {{ menu === 'Klien' && title === 'Daftar Klien' ? 'active' : '' }}" data-key="t-chat"> Daftar Klien </a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link menu-link" href="#sidebarStackholderClients" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarStackholderClients">
+                    <i class="mdi mdi-view-grid-plus-outline"></i> <span>Pemangku Jabatan Klien</span>
+                </a>
+                <div class="collapse menu-dropdown {{ menu === 'Pemangku Jabatan Klien' ? 'show' : '' }}" id="sidebarStackholderClients">
+                  <ul class="nav nav-sm flex-column">
+                    <li class="nav-item">
+                      <a href="{{ route('client_stackholders.create') }}" class="nav-link {{ menu === 'Pemangku Jabatan Klien' && title === 'Buat Pemangku Jabatan Klien' ? 'active' : '' }}" data-key="t-calendar"> Buat Pemangku Jabatan Klien </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ route('client_stackholders.list') }}" class="nav-link {{ menu === 'Pemangku Jabatan Klien' && title === 'Daftar Pemangku Jabatan Klien' ? 'active' : '' }}" data-key="t-calendar"> Daftar Pemangku Jabatan Klien </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+          </ul>
+      </div>
+      <!-- Sidebar -->
+  </div>
+
+  <div class="sidebar-background"></div>
+</div>

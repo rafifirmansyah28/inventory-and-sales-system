@@ -1,0 +1,96 @@
+<div class="app-menu navbar-menu">
+  <!-- LOGO -->
+  <div class="navbar-brand-box">
+      <!-- Dark Logo-->
+      <a href="{{ route('company.index') }}" class="logo logo-dark">
+          <span class="logo-sm">
+              <h2 class="mt-4 text-white">SIP</h2>
+              {{--  <img src="/assets/images/logo-sm.png" alt="" height="22">  --}}
+              {{--  <img src="{{ env('PARENT_COMPANY_URL') }}" alt="" height="22">  --}}
+          </span>
+          <span class="logo-lg">
+              {{--  <img src="/assets/images/logo-dark.png" alt="" height="17">  --}}
+              {{--  <img src="{{ env('PARENT_COMPANY_URL') }}" alt="" height="17">  --}}
+              <h1 class="mt-4 text-white">SIP-GPM</h1>
+          </span>
+      </a>
+      <!-- Light Logo-->
+      <a href="{{ route('company.index') }}" class="logo logo-light">
+          <span class="logo-sm">
+              {{--  <img src="/assets/images/logo-sm.png" alt="" height="22">  --}}
+              {{--  <img src="{{ env('PARENT_COMPANY_URL') }}" alt="" height="22">  --}}
+              <h2 class="mt-4 text-white">SIP</h2>
+          </span>
+          <span class="logo-lg">
+              {{--  <img src="/assets/images/logo-light.png" alt="" height="17">  --}}
+              {{--  <img src="{{ env('PARENT_COMPANY_URL') }}" alt="" style="height:10%;width:40%;">  --}}
+              <h1 class="mt-4 text-white">SIP-GPM</h1>
+          </span>
+      </a>
+      <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+          <i class="ri-record-circle-line"></i>
+      </button>
+  </div>
+
+  <div id="scrollbar">
+      <div class="container-fluid">
+
+          <div id="two-column-menu">
+          </div>
+          <ul class="navbar-nav" id="navbar-nav">
+              <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+              <li class="nav-item">
+                  <a class="nav-link menu-link" href="#sidebarStockOfGoods" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarStockOfGoods">
+                      <i class="mdi mdi-speedometer"></i> <span>Stok Barang</span>
+                  </a>
+                  <div class="collapse menu-dropdown {{ menu === 'Stok Barang' ? 'show' : '' }}" id="sidebarStockOfGoods">
+                      <ul class="nav nav-sm flex-column">
+                          <li class="nav-item">
+                              <a href="{{ route('products.create') }}" class="nav-link {{ menu === 'Stok Barang' && title === 'Buat Stok Barang' ? 'active' : '' }}"> Buat Stok Barang </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{ route('products.list') }}" class="nav-link {{ menu === 'Stok Barang' && title === 'Daftar Stok Barang' ? 'active' : '' }}"> Daftar Stok Barang </a>
+                        </li>
+                      </ul>
+                  </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link menu-link" href="#sidebarDiscounts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDiscounts">
+                    <i class="mdi mdi-speedometer"></i> <span>Diskon Barang</span>
+                </a>
+                <div class="collapse menu-dropdown {{ menu === 'Diskon Barang' ? 'show' : '' }}" id="sidebarDiscounts">
+                    <ul class="nav nav-sm flex-column">
+                        <li class="nav-item">
+                            <a href="{{ route('discounts.create') }}" class="nav-link {{ menu === 'Diskon Barang' && title === 'Buat Diskon Barang' ? 'active' : '' }}"> Buat Diskon Barang </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="{{ route('discounts.list') }}" class="nav-link {{ menu === 'Diskon Barang' && title === 'Daftar Diskon Barang' ? 'active' : '' }}"> Daftar Diskon Barang </a>
+                      </li>
+                    </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link menu-link" href="#sidebarSalesTranscation" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSalesTranscation">
+                      <i class="mdi mdi-view-grid-plus-outline"></i> <span>Transaksi Penjualan</span>
+                  </a>
+                  <div class="collapse menu-dropdown {{ menu === 'Transaksi Penjualan' ? 'show' : '' }}" id="sidebarSalesTranscation">
+                      <ul class="nav nav-sm flex-column">
+                          <li class="nav-item">
+                              <a href="{{ route('transactions.create') }}" class="nav-link {{ menu === 'Transaksi Penjualan' && title === 'Buat Transaksi Penjualan' ? 'active' : '' }}"> Buat Transaksi Penjualan </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{ route('transactions.list') }}" class="nav-link {{ menu === 'Transaksi Penjualan' && title === 'Daftar Transaksi Penjualan' ? 'active' : '' }}"> Daftar Transaksi Penjualan </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{ route('masterStatuses.list') }}" class="nav-link {{ menu === 'Transaksi Penjualan' && title === 'Daftar Master Transaksi Penjualan' ? 'active' : '' }}"> Master Status Transaksi Penjualan </a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
+          </ul>
+      </div>
+      <!-- Sidebar -->
+  </div>
+
+  <div class="sidebar-background"></div>
+</div>

@@ -1,0 +1,129 @@
+@layout('layouts/admin/main')
+@set('menu', 'Pemangku Jabatan Klien')
+@set('title', 'Daftar Pemangku Jabatan Klien')
+
+@section('content')
+  <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Daftar Pemangku Jabatan Klien</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item active">Daftar Pemangku Jabatan Klien</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h4 class="card-title mb-0 flex-grow-1">Daftar Pemangku Jabatan Klien</h4>
+        </div>
+        <div class="card-body">
+          <table id="client-stackholder-list" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Nama Pemangku Jabatan</th>
+                  <th>Nama Klien</th>
+                  <th>Posisi Jabatan</th>
+                  <th>Tanggal dibuat</th>
+                  <th>Tanggal diubah</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                @each((clientStackholder, index) in clientStackholders)
+                  <tr>
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ clientStackholder.name }}</td>
+                    <td>{{ clientStackholder.client.name }}</td>
+                    <td>{{ clientStackholder.job_position ? clientStackholder.job_position : '-' }}</td>
+                    <td>{{ clientStackholder.created_at }}</td>
+                    <td>{{ clientStackholder.updated_at }}</td>
+                    <td class="text-center" style="width: 10%">
+                      <a href="{{ route('client_stackholders.edit', {id: clientStackholder.id}) }}"><button type="button" class="btn btn-success btn-sm mr-2">Ubah</button></a>
+                      <form action="{{ route('client_stackholders.delete', {id: clientStackholder.id}) }}?_method=DELETE" id="form-delete-client-stackholder-{{clientStackholder.id}}" method="POST" class="d-inline">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(event, {{clientStackholder.id}})">Hapus</button>
+                      </form>
+                    </td>
+                  </tr>
+                @end
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+@end
+
+@section('styles')
+  <link rel="stylesheet" href="/assets/css/datatables.bootstrap5.min.css">
+  <link rel="stylesheet" href="/assets/css/responsive.bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/buttons.datatables.min.css">
+
+  <!-- Sweet Alert css-->
+  <link href="/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+@end
+
+@section('scripts')
+  <script src="/assets/js/jquery3.6.0.min.js"></script>
+
+  <script src="/assets/js/jquery.datatables.min.js"></script>
+  <script src="/assets/js/datatables.bootstrap5.min.js"></script>
+  <script src="/assets/js/datatables.responsive.min.js"></script>
+  <script src="/assets/js/datatables.buttons.min.js"></script>
+
+  <!-- Sweet Alerts js -->
+  <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      new DataTable("#client-stackholder-list")
+    })
+
+    function confirmDelete(event, client_id) {
+      event.preventDefault()
+
+      Swal.fire({
+        title: 'Apakah anda yakin ingin menghapus pemangku jabatan klien ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya',
+        cancelButtonText: 'Tidak',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $(`#form-delete-client-stackholder-${client_id}`).submit()
+        }
+      })
+    }
+  </script>
+
+  @if(flashMessages.has('success'))
+    <script>
+      Swal.fire({
+        title: "Berhasil!",
+        text: "{{ flashMessages.get('success') }}",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @elseif(flashMessages.has('error'))
+    <script>
+      Swal.fire({
+        title: "Gagal!",
+        text: "{{ flashMessages.get('error') }}",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @endif
+@end

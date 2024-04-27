@@ -1,0 +1,242 @@
+@layout('layouts/admin/main')
+@set('menu', 'Pengguna Perusahaan')
+@set('title', 'Buat Pengguna Perusahaan')
+
+@section('content')
+  <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Buat Pengguna Perusahaan</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{{ route('user_companies.list') }}">Pengguna Perusahaan</a></li>
+                    <li class="breadcrumb-item active">Buat Pengguna Perusahaan</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h4 class="card-title mb-0 flex-grow-1">Buat Pengguna Perusahaan</h4>
+        </div>
+        <form action="{{ route('user_companies.store') }}" method="POST" enctype="multipart/form-data">
+        <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="name" class="form-label">Nama <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.name'))
+                      <input type="text" class="form-control is-invalid" id="name" name="name" placeholder="Masukkan nama">
+                    @elseif(flashMessages.has('name'))
+                      <input type="text" class="form-control" id="name" name="name" value="{{ flashMessages.get('name') }}" placeholder="Masukkan nama">
+                    @else
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.name') }}</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.email'))
+                      <input type="text" class="form-control is-invalid" id="email" name="email" placeholder="Masukkan email">
+                    @elseif(flashMessages.has('email'))
+                      <input type="text" class="form-control" id="email" name="email" value="{{ flashMessages.get('email') }}" placeholder="Masukkan email">
+                    @else
+                      <input type="text" class="form-control" id="email" name="email" placeholder="Masukkan email">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.email') }}</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="password" class="form-label">Kata sandi <span class="text-danger">*</span></label>
+                    <div class="position-relative auth-pass-inputgroup">
+                      @if(flashMessages.has('errors.password'))
+                        <input type="password" class="form-control is-invalid" id="password" name="password" placeholder="Masukkan kata sandi">
+                      @elseif(flashMessages.has('password'))
+                        <input type="password" class="form-control" id="password" name="password" value="{{ flashMessages.get('password') }}" placeholder="Masukkan kata sandi">
+                      @else
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan kata sandi">
+                      @endif
+                      <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                      <div class="invalid-feedback">{{ flashMessages.get('errors.password') }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="phone_number" class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.phone_number'))
+                      <input type="text" class="form-control is-invalid" id="phone_number" name="phone_number" placeholder="Masukkan nomor telepon">
+                    @elseif(flashMessages.has('phone_number'))
+                      <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ flashMessages.get('phone_number') }}" placeholder="Masukkan nomor telepon">
+                    @else
+                      <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Masukkan nomor telepon">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.phone_number') }}</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="upload-signature-image" class="form-label">Unggah Gambar Tanda Tangan</label>
+                    @if(flashMessages.has('errors.upload_signature_image'))
+                      <input class="form-control is-invalid" type="file" id="upload-signature-image" name="upload_signature_image" accept=".jpeg,.jpg,.png">
+                    @else
+                      <input class="form-control" type="file" id="upload-signature-image" name="upload_signature_image" accept=".jpeg,.jpg,.png">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.upload_signature_image') }}</div>
+                    <a href="" class="image-popup" id="popup-preview-image">
+                      <img src="" id="preview-image" class="mt-3">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="company-id" class="form-label">Perusahaan <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.company_id'))
+                      <select class="select2" name="company_id" id="company-id">
+                        <option></option>
+                        @each(company in companies)
+                          <option value="{{ company.id }}">{{ company.name }}</option>
+                        @end
+                      </select>
+                    @elseif(flashMessages.has('company_id'))
+                      <select class="select2" name="company_id" id="company-id">
+                        <option></option>
+                        @each(company in companies)
+                          @if (company.id == flashMessages.get('company_id'))
+                            <option value="{{ company.id }}" name="company_id" selected="selected">{{ company.name }}</option>
+                          @endif
+
+                          <option value="{{ company.id }}" name="company_id">{{ company.name }}</option>
+                        @end
+                      </select>
+                    @else
+                      <select class="select2" name="company_id" id="company-id">
+                        <option></option>
+                        @each(company in companies)
+                          <option value="{{ company.id }}">{{ company.name }}</option>
+                        @end
+                      </select>
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.company_id') }}</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="job-position" class="form-label">Posisi Jabatan</label>
+                    @if(flashMessages.has('errors.job_position'))
+                      <input type="text" class="form-control is-invalid" id="job-position" name="job_position" placeholder="Masukkan posisi jabatan">
+                    @elseif(flashMessages.has('job_position'))
+                      <input type="text" class="form-control" id="job-position" name="job_position" value="{{ flashMessages.get('job_position') }}" placeholder="Masukkan posisi jabatan">
+                    @else
+                      <input type="text" class="form-control" id="job-position" name="job_position" placeholder="Masukkan posisi jabatan">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.job_position') }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <span>Catatan:</span>
+                <p><span class="text-danger">*</span> <span class="font-weight-bold">Wajib diisi</span></p>
+            </div>
+        </div>
+          <div class="card-footer d-flex justify-content-end">
+            <input type="submit" class="btn btn-primary" value="Kirim">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+@end
+
+@section('styles')
+  <!-- Sweet Alert css-->
+  <link href="/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/select2.min.css" rel="stylesheet" />
+@end
+
+@section('scripts')
+  <!-- Select 2 -->
+    <script src="/assets/js/select2.min.js"></script>
+  <!-- Sweet Alerts js -->
+  <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+  <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+              console.log(e.target)
+                $('#preview-image').attr('src', e.target.result);
+                $('#preview-image').attr('width', '20%');
+                $('#preview-image').attr('height', '10%');
+                $('#popup-preview-image').attr('href', e.target.result)
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('#upload-signature-image').change(function() {
+        readURL(this);
+    });
+
+    // Select 2
+    $(".select2").select2({
+      placeholder: "Pilih Perusahaan",
+    })
+
+    // Password addon
+    $("#password-addon").click(function() {
+      if($(this).children('i').hasClass('ri-eye-fill')) {
+        $(this).children('i').removeClass('ri-eye-fill')
+        $(this).children('i').addClass('ri-eye-off-fill')
+        $('#password').attr('type', 'text')
+      } else {
+        $(this).children('i').removeClass('ri-eye-off-fill')
+        $(this).children('i').addClass('ri-eye-fill')
+        $('#password').attr('type', 'password')
+      }
+    })
+
+    // Phone number only number type
+    $("#phone_number").on('input', function() {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    })
+  </script>
+
+  @if(flashMessages.has('success'))
+    <script>
+      Swal.fire({
+        title: "Berhasil!",
+        text: "{{ flashMessages.get('success') }}",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @elseif(flashMessages.has('error'))
+    <script>
+      Swal.fire({
+        title: "Gagal!",
+        text: "{{ flashMessages.get('error') }}",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @endif
+@end

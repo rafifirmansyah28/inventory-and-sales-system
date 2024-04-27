@@ -1,0 +1,133 @@
+@layout('layouts/admin/main')
+@set('menu', 'Klien')
+@set('title', 'Buat Klien')
+
+@section('content')
+  <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Buat Klien</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{{ route('clients.list') }}">Daftar Klien</a></li>
+                    <li class="breadcrumb-item active">Buat Klien</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header align-items-center d-flex">
+          <h4 class="card-title mb-0 flex-grow-1">Buat Klien</h4>
+        </div>
+        <form action="{{ route('clients.store') }}" method="POST" enctype="multipart/form-data">
+        <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="name" class="form-label">Nama <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.name'))
+                      <input type="text" class="form-control is-invalid" id="name" name="name" placeholder="Masukkan nama">
+                    @elseif(flashMessages.has('name'))
+                      <input type="text" class="form-control" id="name" name="name" value="{{ flashMessages.get('name') }}" placeholder="Masukkan nama">
+                    @else
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.name') }}</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="address" class="form-label">Alamat <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.address'))
+                      <textarea class="form-control is-invalid" id="address" rows="3" name="address" placeholder="Masukkan alamat"></textarea>
+                    @elseif(flashMessages.has('address'))
+                      <textarea class="form-control" id="address" rows="3" name="address" placeholder="Masukkan alamat">{{ flashMessages.get('address') }}</textarea>
+                    @else
+                      <textarea class="form-control" id="address" rows="3" name="address" placeholder="Masukkan alamat"></textarea>
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.address') }}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="npsn" class="form-label">NPSN <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.npsn'))
+                      <input type="text" class="form-control is-invalid" id="npsn" name="npsn" placeholder="Masukkan npsn">
+                    @elseif(flashMessages.has('npsn'))
+                      <input type="text" class="form-control" id="npsn" name="npsn" value="{{ flashMessages.get('npsn') }}" placeholder="Masukkan npsn">
+                    @else
+                      <input type="text" class="form-control" id="npsn" name="npsn" placeholder="Masukkan npsn">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.npsn') }}</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <div class="col-md-12">
+                    <label for="npwp" class="form-label">NPWP <span class="text-danger">*</span></label>
+                    @if(flashMessages.has('errors.npwp'))
+                      <input type="text" class="form-control is-invalid" id="npwp" name="npwp" placeholder="Masukkan npwp">
+                    @elseif(flashMessages.has('npwp'))
+                      <input type="text" class="form-control" id="npwp" name="npwp" value="{{ flashMessages.get('npwp') }}" placeholder="Masukkan npwp">
+                    @else
+                      <input type="text" class="form-control" id="npwp" name="npwp" placeholder="Masukkan npwp">
+                    @endif
+                    <div class="invalid-feedback">{{ flashMessages.get('errors.npwp') }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <span>Catatan:</span>
+                <p><span class="text-danger">*</span> <span class="font-weight-bold">Wajib diisi</span></p>
+            </div>
+        </div>
+          <div class="card-footer d-flex justify-content-end">
+            <input type="submit" class="btn btn-primary" value="Kirim">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+@end
+
+@section('styles')
+  <!-- Sweet Alert css-->
+  <link href="/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+@end
+
+@section('scripts')
+  <!-- Sweet Alerts js -->
+  <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+
+  @if(flashMessages.has('success'))
+    <script>
+      Swal.fire({
+        title: "Berhasil!",
+        text: "{{ flashMessages.get('success') }}",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @elseif(flashMessages.has('error'))
+    <script>
+      Swal.fire({
+        title: "Gagal!",
+        text: "{{ flashMessages.get('error') }}",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @endif
+@end

@@ -1,0 +1,1170 @@
+@layout('layouts/company/main')
+@set('menu', 'Transaksi Penjualan')
+@set('title', 'Buat Transaksi Penjualan')
+
+@section('content')
+  <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Buat Transaksi Penjualan</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{{ route('discounts.list') }}">Transaksi Penjualan</a></li>
+                    <li class="breadcrumb-item active">Buat Transaksi Penjualan</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body checkout-tab">
+
+                    <form action="#">
+                        <div class="step-arrow-nav mt-n3 mx-n3 mb-3">
+
+                            <ul class="nav nav-pills nav-justified custom-nav" role="tablist">
+                                <li class="nav-item cursor-not-allowed" id="order-info-list" role="presentation">
+                                    <button class="nav-link fs-15 p-3 disabled" id="pills-order-info-tab" data-bs-toggle="pill" data-bs-target="#pills-order-info" type="button" role="tab" aria-controls="pills-order-info" aria-selected="true">
+                                        <i class="ri-user-2-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Informasi Pesanan
+                                    </button>
+                                </li>
+                                <li class="nav-item cursor-not-allowed" id="order-cart-list" role="presentation">
+                                    <button class="nav-link fs-15 p-3 disabled" id="pills-order-cart-tab" data-bs-toggle="pill" data-bs-target="#pills-order-cart" type="button" role="tab" aria-controls="pills-order-cart" aria-selected="false">
+                                        <i class="ri-truck-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Keranjang Pesanan
+                                    </button>
+                                </li>
+                                <li class="nav-item cursor-not-allowed" id="order-preview-list" role="presentation">
+                                    <button class="nav-link fs-15 p-3 disabled" id="pills-order-preview-tab" data-bs-toggle="pill" data-bs-target="#pills-order-preview" type="button" role="tab" aria-controls="pills-order-preview" aria-selected="false">
+                                        <i class="ri-bank-card-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Pratinjau Pesanan
+                                    </button>
+                                </li>
+                                <li class="nav-item cursor-not-allowed" role="presentation">
+                                    <button class="nav-link fs-15 p-3 disabled" id="pills-finish-tab" data-bs-toggle="pill" data-bs-target="#pills-finish" type="button" role="tab" aria-controls="pills-finish" aria-selected="false">
+                                        <i class="ri-checkbox-circle-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"></i> Selesai
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="pills-order-info" role="tabpanel" aria-labelledby="pills-order-info-tab">
+                                <div class="mb-4">
+                                    <h5 class="mb-1">Informasi Pesanan</h5>
+                                </div>
+
+                                <div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                          <div class="row">
+                                            <div class="mb-3">
+                                                <label for="sk-number" class="form-label">Nomor Surat Pesanan</label>
+                                                <input type="text" class="form-control" id="sk-number" placeholder="Masukkan nomor surat pesanan" name="sk_number" value="{{ latestSkCompany }}" disabled>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="mb-3">
+                                              <label for="order-date" class="form-label">Tanggal Pesanan</label>
+                                              <input type="text" class="form-control" id="order-date" placeholder="Masukkan tanggal pesanan" name="order_date" value="{{ currentDate }}" disabled>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="mb-3">
+                                              <label for="order-name" class="form-label">Nama Pekerjaan <span class="text-danger">*</span></label>
+                                              <input type="text" class="form-control" id="order-name" placeholder="Masukkan nama pekerjaan" name="order_name" value="">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-6">
+                                          <div class="row">
+                                            <div class="mb-3">
+                                              <label for="client-id" class="form-label">Satuan Pendidikan <span class="text-danger">*</span></label>
+                                              <select class="select2-client is-invalid" name="client_id" id="client-id">
+                                                <option></option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="mb-3">
+                                              <label for="stackholder-id" class="form-label">Nama Pemesan <span class="text-danger">*</span></label>
+                                              <select class="select2-stackholders-of-client is-invalid" name="stackholder_id" id="stackholder-id" disabled>
+                                                <option></option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2">
+                                      <div class="col-md-6">
+                                        <span>Catatan:</span>
+                                        <p><span class="text-danger">*</span> <span class="font-weight-bold">Wajib diisi</span></p>
+                                      </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-start gap-3 mt-3">
+                                        <button type="button" class="btn btn-primary btn-label right ms-auto nexttab" data-nexttab="pills-order-cart-tab" id="button-pills-order-cart-tab">
+                                            <i class="ri-truck-line label-icon align-middle fs-16 ms-2"></i>Lanjut ke Keranjang Pesanan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end tab pane -->
+
+                            <div class="tab-pane fade" id="pills-order-cart" role="tabpanel" aria-labelledby="pills-order-cart-tab">
+                                <div>
+                                    <h5 class="mb-1">Keranjang Pesanan</h5>
+                                    {{--  <p class="text-muted mb-4">Please fill all information below</p>  --}}
+                                </div>
+
+                                <div class="mt-4">
+                                    {{--  <div class="d-flex align-items-center mb-2">
+                                        <div class="flex-grow-1">
+                                            <h5 class="fs-14 mb-0">Saved Address</h5>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-sm btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addAddressModal">
+                                                Add Address
+                                            </button>
+                                        </div>
+                                    </div>  --}}
+                                    <div class="row" id="product-list">
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-start gap-3 mt-4">
+                                    {{--  <button type="button" class="btn btn-light btn-label previestab" data-previous="pills-order-info-tab" id="button-pills-order-info-tab" onclick="backToOrderInformation()"><i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>Kembali ke Informasi Pesanan</button>  --}}
+                                    <button type="button" class="btn btn-danger btn-label" id="button-cancel-order"><i class="ri-close-circle-line label-icon align-middle fs-16 me-2"></i>Batalkan Pesanan</button>
+                                    <button type="button" class="btn btn-primary btn-label right ms-auto nexttab" data-nexttab="pills-order-preview-tab" id="button-pills-order-preview-tab"><i class="ri-bank-card-line label-icon align-middle fs-16 ms-2"></i>Lanjut ke Pratinjau Pesanan</button>
+                                </div>
+                            </div>
+                            <!-- end tab pane -->
+
+                            <div class="tab-pane fade" id="pills-order-preview" role="tabpanel" aria-labelledby="pills-order-preview-tab">
+                                <div>
+                                    <h5 class="mb-1">Pratinjau Pesanan</h5>
+                                    {{--  <p class="text-muted mb-4">Please select and enter your billing information</p>  --}}
+                                </div>
+
+                                @if(discounts?.length)
+                                  <div class="mt-4">
+                                    <p class="h6">Pilih Diskon:</p>
+                                  </div>
+                                  <div class="row g-4">
+                                    @each((discount, index) in discounts)
+                                      <div class="col-lg-4 col-sm-6">
+                                          {{--  <div data-bs-toggle="collapse" data-bs-target="#paymentmethodCollapse.show" aria-expanded="false" aria-controls="paymentmethodCollapse">  --}}
+                                              <div class="form-check card-radio">
+                                                  <input id="discount-{{index}}" name="discount_id" type="radio" class="form-check-input" value="{{ discount.percent }}" data-id="{{ discount.id }}">
+                                                  <label class="form-check-label" for="discount-{{index}}">
+                                                      <span class="fs-16 text-muted me-2"><i class="ri-money-dollar-box-fill align-bottom"></i></span>
+                                                      <span class="fs-14 text-wrap">{{ discount.name }}</span>
+                                                  </label>
+                                              </div>
+                                              {{--  </div>  --}}
+                                      </div>
+                                    @endeach
+                                  </div>
+                                  <div class="row mt-2">
+                                    <p>
+                                      <input type="checkbox" id="not-apply-discount" name="not_apply_discount" class="form-check-input" value="true" disabled>
+                                      <label class="form-check-label" for="not-apply-discount">Saya tidak mau memakai diskon</label>
+                                    </p>
+                                  </div>
+                                @endif
+
+
+                                <div class="d-flex align-items-start gap-3 mt-4">
+                                    {{--  <button type="button" class="btn btn-light btn-label previestab" data-previous="pills-order-cart-tab"><i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>Back to Shipping</button>  --}}
+                                    <button type="button" class="btn btn-danger btn-label" id="button-cancel-order"><i class="ri-close-circle-line label-icon align-middle fs-16 me-2"></i>Batalkan Pesanan</button>
+                                    <button type="button" class="btn btn-primary btn-label right ms-auto nexttab" data-nexttab="pills-finish-tab" id="button-pills-finish-tab"><i class="ri-shopping-cart-line label-icon align-middle fs-16 ms-2"></i>Complete Order</button>
+                                </div>
+                            </div>
+                            <!-- end tab pane -->
+
+                            <div class="tab-pane fade" id="pills-finish" role="tabpanel" aria-labelledby="pills-finish-tab">
+                                <div class="text-center py-5">
+
+                                    <div class="mb-4">
+                                        <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>
+                                    </div>
+                                    <h5>Thank you ! Your Order is Completed !</h5>
+                                    <p class="text-muted">You will receive an order confirmation email with details of your order.</p>
+
+                                    <h3 class="fw-semibold">Order ID: <a href="apps-ecommerce-order-details.html" class="text-decoration-underline">VZ2451</a></h3>
+                                </div>
+                            </div>
+                            <!-- end tab pane -->
+                        </div>
+                        <!-- end tab content -->
+                    </form>
+                </div>
+                <!-- end card body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex">
+                        <div class="flex-grow-1">
+                            <h5 class="card-title mb-0">Keranjang</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive table-card">
+                        <table class="table table-borderless align-middle mb-0">
+                          <img src="/assets/images/empty-cart.png" alt="Empty Cart" id="empty-cart" class="mx-auto d-block mt-4 mb-4" style="width:130px;height:130px;">
+                            <thead class="table-light text-muted d-none" id="product-carts-head">
+                                <tr>
+                                    <th style="width: 90px;" scope="col">Barang</th>
+                                    <th scope="col">Informasi Barang</th>
+                                    <th scope="col" class="text-end">Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody class="d-none" id="product-carts">
+                                {{--  <tr>
+                                    <td>
+                                        <div class="avatar-md bg-light rounded p-1">
+                                            <img src="/assets/images/products/img-8.png" alt="" class="img-fluid d-block">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5 class="fs-14"><a href="apps-ecommerce-product-details.html" class="text-dark">Sweatshirt for Men (Pink)</a></h5>
+                                        <p class="text-muted mb-0">$ 119.99 x 2</p>
+                                    </td>
+                                    <td class="text-end">$ 239.98</td>
+                                </tr>  --}}
+                                {{--  <tr>
+                                    <td>
+                                        <div class="avatar-md bg-light rounded p-1">
+                                            <img src="/assets/images/products/img-7.png" alt="" class="img-fluid d-block">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5 class="fs-14"><a href="apps-ecommerce-product-details.html" class="text-dark">Noise Evolve Smartwatch</a></h5>
+                                        <p class="text-muted mb-0">$ 94.99 x 1</p>
+                                    </td>
+                                    <td class="text-end">$ 94.99</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="avatar-md bg-light rounded p-1">
+                                            <img src="/assets/images/products/img-3.png" alt="" class="img-fluid d-block">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5 class="fs-14"><a href="apps-ecommerce-product-details.html" class="text-dark">350 ml Glass Grocery Container</a></h5>
+                                        <p class="text-muted mb-0">$ 24.99 x 1</p>
+                                    </td>
+                                    <td class="text-end">$ 24.99</td>
+                                </tr>  --}}
+                            </tbody>
+                            <tfoot>
+                              <tr id="sub-total-row">
+                                <td class="fw-semibold" colspan="2">Sub Total :</td>
+                                <td class="fw-semibold text-end" id="sub-total">{{ indonesianCurrencyFormat(0) }}</td>
+                              </tr>
+                              <tr>
+                                  <td colspan="2">Discount <span class="text-muted" id="discount-percent"></span> : </td>
+                                  <td class="text-end" id="discount">{{ indonesianCurrencyFormat(0) }}</td>
+                              </tr>
+                              @if(ppn)
+                                <tr>
+                                    <td colspan="2">PPN ({{ ppn }}%): </td>
+                                    <td class="text-end" id="ppn">{{ indonesianCurrencyFormat(0) }}</td>
+                                </tr>
+                              @endif
+                              <tr class="table-active" id="product-cart-summary">
+                                  <th colspan="2">Grand Total:</th>
+                                  <td class="text-end">
+                                      <span class="fw-semibold" id="grand-total">
+                                        {{ indonesianCurrencyFormat(0) }}
+                                      </span>
+                                  </td>
+                              </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+                <!-- end card body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+@end
+
+@section('styles')
+  <!-- Sweet Alert css-->
+  <link href="/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+  <!-- Select2 css -->
+  <link href="/assets/css/select2.min.css" rel="stylesheet" />
+  <style>
+    .cursor-not-allowed {
+      cursor: not-allowed;
+    }
+  </style>
+
+@end
+
+@section('scripts')
+  <!-- Sweet Alerts js -->
+  <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+  <!-- init js -->
+  <script src="/assets/js/pages/ecommerce-product-checkout.init.js"></script>
+
+  <!-- Select 2 -->
+  <script src="/assets/js/select2.min.js"></script>
+
+  <script>
+    // Select 2
+    $(".select2-client").select2({
+      placeholder: "Pilih satuan pendidikan",
+    })
+
+    $(".select2-stackholders-of-client").select2({
+      placeholder: "Pilih nama pemesan",
+    })
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#preview-image').attr('src', e.target.result);
+                $('#preview-image').attr('width', '20%');
+                $('#preview-image').attr('height', '10%');
+                $('#popup-preview-image').attr('href', e.target.result)
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(".number-only").on('input', function() {
+      this.value = this.value.replace(/^0|[^0-9]/g, '');
+    })
+
+    $('#upload-image').change(function() {
+        readURL(this);
+    });
+
+    const indonesianCurrencyFormat = (number) => {
+      return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+      }).format(number)
+    }
+
+    // Discounts
+    const discounts = $(`input[name="discount_id"]`);
+    const not_apply_discount = $(`input[name="not_apply_discount"]`);
+
+    discounts.click(function() {
+      const subTotalDom = $("#sub-total");
+      const grandTotalDom = $("#grand-total");
+      const discountDom = $("#discount");
+      const discountPercentDom = $("#discount-percent");
+
+      // Enable option to not apply any discount and remove checked
+      if (not_apply_discount.attr("disabled")) not_apply_discount.removeAttr("disabled");
+      if (not_apply_discount.prop("checked")) not_apply_discount.prop("checked", false);
+      // not_apply_discount.removeProp("checked");
+
+      const order = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : null;
+
+      if (order.data.order_cart?.length) {
+        const selectedDiscount = {
+          id: $(this).data("id"),
+          percent: +$(this).val(),
+        };
+
+        const subTotal = order.data.order_cart.reduce(function(subTotal, product) {
+          return subTotal + product.total_product_price;
+        }, 0);
+
+        const discount = subTotal * (selectedDiscount.percent / 100);
+
+        // discountPercentDom.html(`(${selectedDiscount.percent} %)`);
+        // discountDom.html(indonesianCurrencyFormat(discount));
+        // subTotalDom.html(indonesianCurrencyFormat(subTotal));
+        // grandTotalDom.html(indonesianCurrencyFormat(subTotal - discount));
+
+        order.data.order_summary.discount_id = selectedDiscount.id;
+        order.data.order_summary.discount_percent = selectedDiscount.percent;
+        order.data.order_summary.sub_total = subTotal;
+        order.data.order_summary.grand_total = subTotal - discount;
+
+        localStorage.removeItem("order");
+        localStorage.setItem("order", JSON.stringify(order));
+
+        listCart(discount);
+      }
+    });
+
+    // to delete the discount choosed
+    not_apply_discount.click(function() {
+      // Discount
+      $(`input[name="discount_id"]:checked`).prop("checked", false);
+      const order = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : null;
+      console.log("order:", order);
+
+      order.data.order_summary = {
+        discount_id: null,
+        discount_percent: null,
+        sub_total: order.data.order_cart.reduce(function(subTotal, product) {
+          return subTotal + product.total_product_price;
+        }, 0),
+        grand_total: order.data.order_cart.reduce(function(subTotal, product) {
+          return subTotal + product.total_product_price;
+        }, 0),
+      }
+
+      localStorage.removeItem("order");
+      localStorage.setItem("order", JSON.stringify(order));
+
+      listCart();
+    })
+
+    // Get clients and stackholders of client
+    const appUrl = '{{ appUrl }}';
+    const companyId = '{{ companyId }}';
+    const companyName = '{{ companyName }}';
+    const userId = '{{ userId }}';
+    const userName = '{{ userName }}';
+    const clientSelectDom = $('#client-id');
+    const stackholderOfClientSelectDom = $('#stackholder-id');
+
+    $.ajax({
+      type: "GET",
+      url: `${appUrl}/api/clients/list`,
+      contentType: "application/json; charset=utf-8",
+      success: function ({ data: clients }) {
+        let result = '';
+        for (const client of clients) {
+          result += `<option value="${client.id}">${client.name}</option>`
+        }
+
+        clientSelectDom.append(result);
+      },
+      error: function(error) {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Gagal mendapatkan data satuan pendidikan. Harap hubungi admin untuk lebih lanjut.",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    });
+
+    clientSelectDom.change(function() {
+      const clientId = this.value
+
+      if (clientId) {
+        $.ajax({
+          type: "GET",
+          url: `${appUrl}/api/client-stackholders/${clientId}/list`,
+          contentType: "application/json; charset=utf-8",
+          success: function ({ data: stackholders }) {
+            let result = '';
+
+            for (const stackholder of stackholders) {
+              result += `<option value="${stackholder.id}">${stackholder.name}</option>`
+            }
+
+            stackholderOfClientSelectDom.append(result);
+            stackholderOfClientSelectDom.prop('disabled', false)
+          },
+          error: function(error) {
+            Swal.fire({
+              title: "Gagal!",
+              text: "Gagal mendapatkan data nama pemesan. Harap hubungi admin untuk lebih lanjut.",
+              icon: "error",
+              showConfirmButton: false,
+              timer: 3000,
+            })
+          }
+        });
+      } else {
+        stackholderOfClientSelectDom.prop('disabled', true)
+      }
+    });
+
+    const stages = {
+      order_information: "Informasi Pesanan",
+      order_cart: "Keranjang Pesanan",
+      order_preview: "Pratinjau Pesanan",
+      complete_order: "Pesanan Lengkap",
+    };
+
+    // check stage order first and display data previous from localstorage
+    checkStageOrder();
+    function checkStageOrder(stage) {
+      const order = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : null;
+
+      if (order?.ttl) {
+        if (!isOrderDataExpiry(order?.ttl)) {
+          switch (order.stage_now) {
+            case stages.order_information:
+              break;
+            case stages.order_cart:
+              hasOrderInformationStage(order.data.general_information);
+              listCart();
+              break;
+            case stages.order_preview:
+              hasOrderCartStage();
+              listCart();
+              break;
+          }
+        } else {
+          backToTheBeginning();
+
+          // Back to order information stage
+          const informationStageDom = $("button#pills-order-info-tab");
+          if (informationStageDom.hasClass("disabled")) {
+            informationStageDom.removeClass("disabled");
+            informationStageDom.addClass("active");
+          };
+        }
+      } else {
+        // Back to order information stage
+        const informationStageDom = $("button#pills-order-info-tab");
+        if (informationStageDom.hasClass("disabled")) {
+          informationStageDom.removeClass("disabled");
+          informationStageDom.addClass("active");
+        }
+      }
+    }
+
+
+
+    // Add 1 day from current date
+    function addOneDay(date = new Date()) {
+      date.setDate(date.getDate() + 1);
+
+      return date.getTime();
+    }
+
+    function hasOrderInformationStage (data) {
+      const nextStepTab = $(this).attr("data-nexttab");
+
+      // remove disabled clicked for the next step
+      if ($(`#${nextStepTab}`).hasClass("disabled")) {
+        $(`#${nextStepTab}`).removeClass("disabled");
+      }
+
+      // continue to the next step (order cart)
+      $(`#${nextStepTab}`).click()
+    }
+
+    function hasOrderCartStage () {
+      const buttonOrderCartDom = $("button#button-pills-order-preview-tab")
+
+      // Submit order cart
+      buttonOrderCartDom.click(function(e) {
+        const nextStepTab = $(this).attr("data-nexttab");
+
+        // continue to order preview
+        $(`#${nextStepTab}`).click();
+
+        // remove disabled clicked for the next step
+        if ($(`#${nextStepTab}`).hasClass("disabled")) {
+          console.log("ADA");
+          $(`#${nextStepTab}`).removeClass("disabled");
+        }
+
+        // continue to the next step (order cart)
+        $(`#${nextStepTab}`).click();
+      });
+
+      // Trigger to order preview
+      buttonOrderCartDom.trigger("click");
+    }
+
+    // Submit order information
+    const buttonOrderInformationDom = $("button#button-pills-order-cart-tab")
+    buttonOrderInformationDom.click(function(e) {
+      const nextStepTab = $(this).attr("data-nexttab");
+
+      // check before continue to the next step, if doesn't pass then show dialog message
+      const skNumberDom = $("#sk-number");
+      const orderDateDom =  $("#order-date");
+      const orderName = $("#order-name");
+      const clientId = $("#client-id");
+      const stackholderId = $("#stackholder-id");
+
+      // not filled yet
+      if (!skNumberDom.val() || !orderDateDom.val() || !orderName.val() || !clientId.val() || !stackholderId.val()) {
+        // block access to the next step
+        Swal.fire({
+          title: "Peringatan!",
+          text: "Harap isi informasi pesanan terlebih dahulu.",
+          icon: "warning",
+          showCloseButton: true,
+          timer: 3000
+        })
+      } else {
+        // confirm first, before continue to the next step
+        Swal.fire({
+          title: 'Apakah anda yakin sudah mengisi informasi pesanan dengan benar?',
+          text: "Jika belum yakin benar, maka anda tidak dapat mengisi informasi pesanan kembali",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya',
+          cancelButtonText: 'Tidak',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // disabled order information stage
+            const orderInformationStage = $("button#pills-order-info-tab");
+            if (!orderInformationStage.hasClass("disabled")) {
+              orderInformationStage.addClass("disabled");
+            }
+
+            // remove disabled clicked for the next step
+            if ($(`#${nextStepTab}`).hasClass("disabled")) {
+              console.log("ADA");
+              $(`#${nextStepTab}`).removeClass("disabled");
+            }
+
+            // continue to the next step (order cart)
+            $(`#${nextStepTab}`).click();
+
+            // save initial order with order info first
+            const orderData = localStorage.getItem("order");
+            if (!orderData) {
+              const currentDate = new Date();
+              // if (currentDate.getTime() > orderData.ttl) {
+                const newOrderData = JSON.stringify({
+                  data: {
+                    general_information: {
+                      sk_number: skNumberDom.val(),
+                      order_name: orderName.val(),
+                      client_id: clientId.val(),
+                      client_name: clientId.children("option:selected").text(),
+                      stackholder_id: stackholderId.val(),
+                      stackholder_name: stackholderId.children("option:selected").text(),
+                      order_date: orderDateDom.val(),
+                      company_id: +companyId,
+                      company_name: companyName,
+                      user_id: +userId,
+                      user_name: userName,
+                    }
+                  },
+                  stage_passed: stages.order_information,
+                  stage_now: stages.order_cart,
+                  ttl: addOneDay(),
+                  created_at: currentDate.getTime(),
+                });
+
+                localStorage.setItem("order", newOrderData);
+
+                // Clean value of order information stage
+                orderName.val("");
+                clientId.val("");
+                clientId.trigger("change");
+                stackholderId.val("");
+                stackholderId.trigger("change");
+                stackholderId.prop('disabled', true)
+              // }
+            }
+          }
+        })
+      }
+    });
+
+    // Submit order cart
+    const buttonOrderCartDom = $("button#button-pills-order-preview-tab");
+    buttonOrderCartDom.click(function(e) {
+      const order = JSON.parse(localStorage.getItem("order"));
+
+      if (!order.data.order_cart?.length) {
+        // block access to the next step
+        Swal.fire({
+          title: "Peringatan!",
+          text: "Harap isi keranjang pesanan terlebih dahulu.",
+          icon: "warning",
+          showCloseButton: true,
+          timer: 3000
+        })
+      } else {
+        const nextStepTab = $(this).attr("data-nexttab");
+
+        order.stage_passed = stages.order_cart;
+        order.stage_now = stages.order_preview;
+        order.data.order_summary = {
+          discount_id: null,
+          discount_percent: null,
+          sub_total: order.data.order_cart.reduce(function(subTotal, product) {
+            return subTotal + product.total_product_price;
+          }, 0),
+          grand_total: order.data.order_cart.reduce(function(subTotal, product) {
+            return subTotal + product.total_product_price;
+          }, 0),
+        }
+        localStorage.removeItem("order");
+        localStorage.setItem("order", JSON.stringify(order));
+
+        // continue to order preview
+        $(`#${nextStepTab}`).click();
+
+        // disabled order cart stage
+        const orderCartStage = $("button#pills-order-cart-tab");
+        if (!orderCartStage.hasClass("disabled")) {
+          orderCartStage.addClass("disabled");
+        }
+
+        // remove disabled clicked for the next step
+        if ($(`#${nextStepTab}`).hasClass("disabled")) {
+          $(`#${nextStepTab}`).removeClass("disabled");
+        }
+
+        // continue to the next step (order cart)
+        $(`#${nextStepTab}`).click();
+      }
+
+    });
+
+    // Submit order preview
+    const buttonOrderPreviewDom = $("button#button-pills-finish-tab");
+    buttonOrderPreviewDom.click(function(e) {
+      const nextStepTab = $(this).attr("data-nexttab");
+
+      const order = JSON.parse(localStorage.getItem("order"));
+
+      order.stage_passed = stages.order_preview;
+      order.stage_now = stages.complete_order;
+      localStorage.removeItem("order");
+      localStorage.setItem("order", JSON.stringify(order));
+
+      $.ajax({
+        type: "POST",
+        url: `${appUrl}/api/companies/${companyId}/order`,
+        data: {
+          general_information: order.data.general_information,
+          order_cart: order.data.order_cart,
+          order_summary: order.data.order_summary,
+        },
+        success: function ({ data }) {
+          // continue to order preview
+          $(`#${nextStepTab}`).click();
+
+          // disabled form submit
+          if (!$(this).hasClass("disabled")) {
+            $(this).addClass("disabled");
+          }
+
+          // remove disabled clicked for the next step
+          if ($(`#${nextStepTab}`).hasClass("disabled")) {
+            $(`#${nextStepTab}`).removeClass("disabled");
+          }
+
+          // continue to the next step (order cart)
+          $(`#${nextStepTab}`).click();
+
+          // remove order from localstorage
+          localStorage.removeItem("order")
+
+          // back to order information stage (first stage)
+          checkStageOrder()
+        },
+        error: function(error) {
+          Swal.fire({
+              title: "Gagal!",
+              text: error.responseJSON.error,
+              icon: "error",
+              showConfirmButton: false,
+              timer: 3000,
+            }).then(function(res) {
+              if (res.isDismissed) {
+
+              }
+          })
+        }
+      });
+    })
+
+    // Confirmation to cancel order
+    const buttonCancelOrderDom = $("button#button-cancel-order");
+    buttonCancelOrderDom.click(function(e) {
+      Swal.fire({
+          title: 'Apakah anda yakin ingin membatalkan pesanan ini?',
+          text: "Jika iya, maka anda harus memulai pesanan dari awal",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya',
+          cancelButtonText: 'Tidak',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // get order from local storage before remove order
+            const order = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : null;
+
+            if (order) {
+              localStorage.removeItem("order");
+              const orderInformationStage = $("button#pills-order-info-tab");
+
+              switch (order.stage_now) {
+                case stages.order_cart:
+                  const orderCartStage = $("button#pills-order-cart-tab");
+
+                  // Back to order information stage
+                  if (orderInformationStage.hasClass("disabled")) {
+                    // Enable order information stage
+                    orderInformationStage.removeClass("disabled");
+                    orderInformationStage.click();
+                  }
+
+                  // Disabled order cart stage
+                  if (!orderCartStage.hasClass("disabled")) orderCartStage.addClass("disabled");
+
+                  break;
+                case stages.order_preview:
+                  const orderPreviewStage = $("button#pills-order-preview-tab");
+
+                  // Back to order information stage
+                  if (orderInformationStage.hasClass("disabled")) {
+                    // Enable order information stage
+                    orderInformationStage.removeClass("disabled");
+                    orderInformationStage.click();
+                  }
+
+                  // Reset checked any discount and not apply discount
+                  const not_apply_discount = $(`input[name="not_apply_discount"]`);
+
+                  if (!not_apply_discount.attr("disabled")) not_apply_discount.attr("disabled", "disabled");
+                  if (not_apply_discount.prop("checked")) not_apply_discount.prop("checked", false);
+                  $(`input[name="discount_id"]:checked`).prop("checked", false);
+
+                  // Disabled order preview stage
+                  if (!orderPreviewStage.hasClass("disabled")) orderPreviewStage.addClass("disabled");
+
+                  break;
+              }
+            }
+
+            // clean list of cart
+            listCart();
+            getProductList();
+          }
+        })
+    })
+
+    function backToOrderInformation() {
+      const buttonToOrderInformation = $("#button-pills-order-info-tab");
+      const formOrderInformation = buttonToOrderInformation.attr("data-previous");
+
+      Swal.fire({
+          title: 'Apakah anda yakin ingin kembali ke halaman informasi pesanan?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya',
+          cancelButtonText: 'Tidak',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $(`#${formOrderInformation}`).click();
+          }
+        })
+
+    }
+
+    // Get product list of company
+    function getProductList() {
+      let productsList = [];
+
+      const productListDom = $("#product-list");
+      let result = '';
+
+      // Initial
+      productListDom.html(result);
+
+      $.ajax({
+        type: "GET",
+        url: `${appUrl}/api/companies/${companyId}/product-list`,
+        contentType: "application/json; charset=utf-8",
+        success: function ({ data: products }) {
+          productsList = products.map((product) => {
+            return {
+              product_id: product.id,
+              product_name: product.name,
+              product_price: product.price,
+              product_stock: product.qty,
+              product_image: product.image,
+            }
+          });
+
+          const order = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : null;
+          let productsInOrderCart = [];
+          if (order) {
+            if (order.data.order_cart?.length) productsInOrderCart = order.data.order_cart.map((product) => {
+              return {
+                product_id: product.product_id,
+                product_qty: product.product_qty,
+              }
+            })
+          }
+
+          for (const product of products) {
+            if (productsInOrderCart.find((productInOrderCart) => productInOrderCart.product_id === product.id)) {
+              result += `<div class="col-4">
+                            <div class="card">
+                                <div class="card-body text-center p-4">
+                                    <img src="${appUrl}/${product.image}" alt="${product.name}" height="110px" width="110px">
+                                    <h5 class="mb-1 mt-4"><a href="apps-ecommerce-seller-details.html" class="link-primary">${product.name}</a></h5>
+                                    <p class=" mb-4 mt-4 h5">${indonesianCurrencyFormat(product.price)}</p>
+                                    <div class="mt-4">
+                                        <div class="mb-2" id="quantity-button-${product.id}">
+                                            <button type="button" class="btn btn-md btn-danger" onclick="addToCart(${product.id}, '${product.name}', '${product.image}', ${product.price}, 'decrease')"><span class="h5 text-white">-</span></button>
+                                            <span class="h6 m-2" id="quantity-${product.id}">${productsInOrderCart.find((productInOrderCart) => productInOrderCart.product_id === product.id).product_qty}</span>
+                                            <button type="button" class="btn btn-md btn-danger" onclick="addToCart(${product.id}, '${product.name}', '${product.image}', ${product.price}, 'increase')"><span class="h5 text-white">+</span></button>
+                                        </div>
+                                        <button type="button" class="btn btn-danger w-75 d-none" id="add-to-cart-button-${product.id}" onclick="addToCart(${product.id}, '${product.name}', '${product.image}', ${product.price}, 'increase')">+ Keranjang</button>
+                                    </div>
+                                </div>
+                          </div>
+                        </div>`;
+            } else {
+              result += `<div class="col-4">
+                            <div class="card">
+                                <div class="card-body text-center p-4">
+                                    <img src="${appUrl}/${product.image}" alt="${product.name}" height="110px" width="110px">
+                                    <h5 class="mb-1 mt-4"><a href="apps-ecommerce-seller-details.html" class="link-primary">${product.name}</a></h5>
+                                    <p class=" mb-4 mt-4 h5">${indonesianCurrencyFormat(product.price)}</p>
+                                    <div class="mt-4">
+                                        <div class="mb-2 d-none" id="quantity-button-${product.id}">
+                                            <button type="button" class="btn btn-md btn-danger" onclick="addToCart(${product.id}, '${product.name}', '${product.image}', ${product.price}, 'decrease')"><span class="h5 text-white">-</span></button>
+                                            <span class="h6 m-2" id="quantity-${product.id}">1</span>
+                                            <button type="button" class="btn btn-md btn-danger" onclick="addToCart(${product.id}, '${product.name}', '${product.image}', ${product.price}, 'increase')"><span class="h5 text-white">+</span></button>
+                                        </div>
+                                        <button type="button" class="btn btn-danger w-75" id="add-to-cart-button-${product.id}" onclick="addToCart(${product.id}, '${product.name}', '${product.image}', ${product.price}, 'increase')">+ Keranjang</button>
+                                    </div>
+                                </div>
+                          </div>
+                        </div>`;
+            }
+          }
+
+          productListDom.append(result);
+        },
+        error: function(error) {
+          console.log("error");
+        }
+      });
+    }
+
+    getProductList();
+
+
+    function addToCart(productId, productName, productImage, productPrice, type = "increase") {
+      // Show quantity button and hide button add to card
+      const addToCardButtonDom = $(`#add-to-cart-button-${productId}`);
+      const quantityButtonDom = $(`#quantity-button-${productId}`);
+      if (!addToCardButtonDom.hasClass("d-none")) {
+        addToCardButtonDom.addClass("d-none");
+      }
+      if (quantityButtonDom.hasClass("d-none")) {
+        quantityButtonDom.removeClass("d-none");
+      }
+
+      let orderData = localStorage.getItem("order");
+      if (orderData) {
+        orderData = JSON.parse(orderData);
+
+        if (!isOrderDataExpiry(orderData.ttl)) {
+          console.log(orderData);
+          const increaseQty = 1;
+          const decreaseQty = 1;
+          if (orderData.data.order_cart?.length) {
+            // cari index dari product di dalam order_cart (pakai findIndex)
+            const indexOfProductInOrderCart = orderData.data.order_cart.findIndex((order_cart) => order_cart.product_id === productId);
+            const productInOrderCart = orderData.data.order_cart[indexOfProductInOrderCart];
+
+            if (productInOrderCart) {
+              if (type === "increase") {
+                productInOrderCart.product_qty += increaseQty;
+                productInOrderCart.total_product_price =  productInOrderCart.product_price * productInOrderCart.product_qty;
+              } else if (type === "decrease") {
+                if (productInOrderCart.product_qty === 1) {
+                  orderData.data.order_cart.splice(indexOfProductInOrderCart, 1);
+                  quantityButtonDom.addClass("d-none");
+                  addToCardButtonDom.removeClass("d-none");
+                }
+                else {
+                  productInOrderCart.product_qty -= decreaseQty;
+                  productInOrderCart.total_product_price =  productInOrderCart.product_price * productInOrderCart.product_qty;
+                }
+              }
+            } else {
+              orderData.data.order_cart.push({
+                product_id: productId,
+                product_name: productName,
+                product_price: productPrice,
+                product_qty: increaseQty,
+                product_image: productImage,
+                total_product_price: productPrice * increaseQty,
+              });
+            }
+
+            localStorage.removeItem("order");
+            localStorage.setItem("order", JSON.stringify(orderData));
+
+            listCart();
+          } else {
+            orderData.data.order_cart = [{
+              product_id: productId,
+              product_name: productName,
+              product_price: productPrice,
+              product_qty: increaseQty,
+              product_image: productImage,
+              total_product_price: productPrice * increaseQty,
+            }];
+
+            localStorage.removeItem("order");
+            localStorage.setItem("order", JSON.stringify(orderData));
+
+            listCart();
+          }
+
+
+        } else {
+          backToTheBeginning()
+        }
+      }
+    }
+
+    function listCart(discount = 0) {
+      let orderData = localStorage.getItem("order");
+
+      const orderCart = JSON.parse(orderData);
+      const productCartsHeadDom = $("thead#product-carts-head");
+      const productCartsDom = $("tbody#product-carts");
+      const emptyCartDom = $("img#empty-cart");
+      const subTotalDom = $("#sub-total");
+      const grandTotalDom = $("#grand-total");
+      const discountDom = $("#discount");
+      if (orderData) {
+
+        if (orderCart.data.order_cart?.length) {
+          let result = '';
+          let totalAllProductPrice = 0;
+
+          if (productCartsHeadDom.hasClass("d-none")) productCartsHeadDom.removeClass("d-none");
+          if (productCartsDom.hasClass("d-none")) productCartsDom.removeClass("d-none");
+
+          if (!emptyCartDom.hasClass("d-none")) emptyCartDom.addClass("d-none");
+
+          for (const product of orderCart.data.order_cart) {
+            result += `
+              <tr>
+                  <td>
+                      <div class="avatar-md bg-light rounded p-1">
+                          <img src="${appUrl}/${product.product_image}" alt="${product.product_name}" class="img-fluid d-block">
+                      </div>
+                  </td>
+                  <td>
+                      <h5 class="fs-14"><a href="apps-ecommerce-product-details.html" class="text-dark">${product.product_name}</a></h5>
+                      <p class="text-muted mb-0">${indonesianCurrencyFormat(product.product_price)} x ${product.product_qty}</p>
+                  </td>
+                  <td class="text-end">${indonesianCurrencyFormat(product.total_product_price)}</td>
+              </tr>
+            `;
+            $(`#quantity-${product.product_id}`).html(product.product_qty);
+            totalAllProductPrice += product.total_product_price;
+          }
+
+          productCartsDom.html(result);
+          subTotalDom.html(indonesianCurrencyFormat(totalAllProductPrice));
+          // Grand Total
+          if (discount) grandTotalDom.html(indonesianCurrencyFormat(totalAllProductPrice - discount));
+          else grandTotalDom.html(indonesianCurrencyFormat(totalAllProductPrice));
+          // Discount
+          if (discount) discountDom.html(indonesianCurrencyFormat(discount));
+          else discountDom.html(indonesianCurrencyFormat(0));
+        } else {
+          if (!productCartsHeadDom.hasClass("d-none")) productCartsHeadDom.addClass("d-none");
+          if (!productCartsDom.hasClass("d-none")) productCartsDom.addClass("d-none");
+          if (emptyCartDom.hasClass("d-none")) emptyCartDom.removeClass("d-none");
+          if (!emptyCartDom.hasClass("d-block")) emptyCartDom.addClass("d-block");
+
+          subTotalDom.html(indonesianCurrencyFormat(0));
+          grandTotalDom.html(indonesianCurrencyFormat(0));
+          discountDom.html(indonesianCurrencyFormat(0));
+        }
+      } else {
+        if (!productCartsHeadDom.hasClass("d-none")) productCartsHeadDom.addClass("d-none");
+          if (!productCartsDom.hasClass("d-none")) productCartsDom.addClass("d-none");
+          if (emptyCartDom.hasClass("d-none")) emptyCartDom.removeClass("d-none");
+          if (!emptyCartDom.hasClass("d-block")) emptyCartDom.addClass("d-block");
+
+          subTotalDom.html(indonesianCurrencyFormat(0));
+          grandTotalDom.html(indonesianCurrencyFormat(0));
+          discountDom.html(indonesianCurrencyFormat(0));
+      }
+    }
+
+    function isOrderDataExpiry(orderDataTtl) {
+      const currentDate = new Date();
+
+      if (currentDate.getTime() > orderDataTtl) {
+        localStorage.removeItem("order");
+
+        return true;
+      }
+
+      return false;
+    }
+
+    function backToTheBeginning() {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Waktu pembuatan transaksi berakhir. Silahkan ulang kembali!.",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000,
+      }).then(function(res) {
+        if (res.isDismissed) {
+
+        }
+    })
+    }
+
+  </script>
+
+  @if(flashMessages.has('success'))
+    <script>
+      Swal.fire({
+        title: "Berhasil!",
+        text: "{{ flashMessages.get('success') }}",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @elseif(flashMessages.has('error'))
+    <script>
+      Swal.fire({
+        title: "Gagal!",
+        text: "{{ flashMessages.get('error') }}",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    </script>
+  @endif
+@end
