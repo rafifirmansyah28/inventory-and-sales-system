@@ -13,7 +13,16 @@ export default {
         query
           .select(
             Database.raw(`COUNT(*) AS total`),
-            Database.raw(`SUM(grand_total) AS all_revenue`)
+            Database.raw(`
+              CASE
+                WHEN
+                  SUM(grand_total) IS NULL
+                THEN
+                  0
+                ELSE
+                  SUM(grand_total)
+              END AS all_revenue
+            `)
           )
           .from('orders')
       })
