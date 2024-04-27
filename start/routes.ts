@@ -168,7 +168,7 @@ Route.group(() => {
   Route.get('/clients/list', 'Admin/ClientsController.apiList')
   Route.get(
     '/client-stackholders/:client_id/list',
-    'Admin/clientStackholdersController.getStackholdersOfClient'
+    'Admin/ClientStackholdersController.getStackholdersOfClient'
   )
   Route.get('/companies/:company_id/product-list', 'Company/ProductsController.productList')
   Route.post('/companies/:company_id/order', 'Company/OrdersController.process')
