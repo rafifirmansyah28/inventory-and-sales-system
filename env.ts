@@ -36,4 +36,5 @@ export default Env.rules({
   REDIS_PORT: Env.schema.number(),
   REDIS_PASSWORD: Env.schema.string.optional(),
   REDIS_SSL: Env.schema.boolean.optional(),
+  STORE_IN_ROOT_PROJECT: Env.schema.boolean(),
 })

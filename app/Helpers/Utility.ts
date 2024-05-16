@@ -1,9 +1,14 @@
 import Application from '@ioc:Adonis/Core/Application'
+import Env from '@ioc:Adonis/Core/Env'
 import sharp from 'sharp'
 import { DateTime } from 'luxon'
 import Logger from '@ioc:Adonis/Core/Logger'
 import fs from 'node:fs'
 // import Env from '@ioc:Adonis/Core/Env'
+
+const PUBLIC_PATH = Env.get('STORE_IN_ROOT_PROJECT')
+  ? `${Application.appRoot}/../public/`
+  : Application.publicPath('/')
 
 const Utility = {
   async uploadFile(file: any) {
@@ -12,13 +17,13 @@ const Utility = {
     const filePath = `uploads/${fileName}`
 
     // Store to file system
-    await sharp(file.tmpPath).toFile(Application.publicPath(filePath))
+    await sharp(file.tmpPath).toFile(`${PUBLIC_PATH}/${filePath}`)
 
     // return file path
     return filePath
   },
   removeFile(filePath: string) {
-    fs.unlink(Application.publicPath(filePath), (error) => {
+    fs.unlink(`${PUBLIC_PATH}/${filePath}`, (error) => {
       if (error) {
         this.logging(
           `Failed to run ${this.getCurrentFunction()} in ${this.getCurrentFile(__filename)}`,
