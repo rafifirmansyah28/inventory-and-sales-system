@@ -182,7 +182,7 @@
                                 <div class="d-flex align-items-start gap-3 mt-4">
                                     {{--  <button type="button" class="btn btn-light btn-label previestab" data-previous="pills-order-cart-tab"><i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>Back to Shipping</button>  --}}
                                     <button type="button" class="btn btn-danger btn-label" id="button-cancel-order"><i class="ri-close-circle-line label-icon align-middle fs-16 me-2"></i>Batalkan Pesanan</button>
-                                    <button type="button" class="btn btn-primary btn-label right ms-auto nexttab" data-nexttab="pills-finish-tab" id="button-pills-finish-tab"><i class="ri-shopping-cart-line label-icon align-middle fs-16 ms-2"></i>Complete Order</button>
+                                    <button type="button" class="btn btn-primary btn-label right ms-auto nexttab" data-nexttab="pills-finish-tab" id="button-pills-finish-tab"><i class="ri-shopping-cart-line label-icon align-middle fs-16 ms-2"></i>Selesaikan Pesanan</button>
                                 </div>
                             </div>
                             <!-- end tab pane -->
@@ -193,10 +193,10 @@
                                     <div class="mb-4">
                                         <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>
                                     </div>
-                                    <h5>Thank you ! Your Order is Completed !</h5>
-                                    <p class="text-muted">You will receive an order confirmation email with details of your order.</p>
-
-                                    <h3 class="fw-semibold">Order ID: <a href="apps-ecommerce-order-details.html" class="text-decoration-underline">VZ2451</a></h3>
+                                    <h5>Terima Kasih ! Pesanan sudah selesai dibuat!</h5>
+                                    {{--  <p class="text-muted">You will receive an order confirmation email with details of your order.</p>  --}}
+                                    <a href="/company/transactions/list" class="btn btn-medium btn-primary mt-4">Lihat Transaksi</a>
+                                    {{--  <h3 class="fw-semibold">Order ID: <a href="apps-ecommerce-order-details.html" class="text-decoration-underline"></a></h3>  --}}
                                 </div>
                             </div>
                             <!-- end tab pane -->
@@ -418,7 +418,6 @@
       // Discount
       $(`input[name="discount_id"]:checked`).prop("checked", false);
       const order = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : null;
-      console.log("order:", order);
 
       order.data.order_summary = {
         discount_id: null,
@@ -581,7 +580,7 @@
 
         // remove disabled clicked for the next step
         if ($(`#${nextStepTab}`).hasClass("disabled")) {
-          console.log("ADA");
+
           $(`#${nextStepTab}`).removeClass("disabled");
         }
 
@@ -636,7 +635,6 @@
 
             // remove disabled clicked for the next step
             if ($(`#${nextStepTab}`).hasClass("disabled")) {
-              console.log("ADA");
               $(`#${nextStepTab}`).removeClass("disabled");
             }
 
@@ -779,7 +777,7 @@
           localStorage.removeItem("order")
 
           // back to order information stage (first stage)
-          checkStageOrder()
+          // checkStageOrder()
         },
         error: function(error) {
           Swal.fire({
@@ -790,7 +788,11 @@
               timer: 3000,
             }).then(function(res) {
               if (res.isDismissed) {
+                // remove order from localstorage
+                localStorage.removeItem("order")
 
+                // // back to order information stage (first stage)
+                // checkStageOrder()
               }
           })
         }
@@ -963,7 +965,7 @@
           productListDom.append(result);
         },
         error: function(error) {
-          console.log("error");
+
         }
       });
     }
@@ -987,7 +989,6 @@
         orderData = JSON.parse(orderData);
 
         if (!isOrderDataExpiry(orderData.ttl)) {
-          console.log(orderData);
           const increaseQty = 1;
           const decreaseQty = 1;
           if (orderData.data.order_cart?.length) {
